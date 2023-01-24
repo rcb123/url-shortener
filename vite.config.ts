@@ -10,6 +10,7 @@ const config: UserConfig = {
 			$components: path.resolve('./src/components'),
 			$static: path.resolve('/'),
 			$images: path.resolve('/images'),
+			$lib: path.resolve('/lib'),
 		}
 	},
 	test: {

@@ -1,3 +1,11 @@
 {
-	"/": []
+	"/": [
+		"src/routes/+page.server.ts"
+	],
+	"/api/shortenURL": [
+		"src/routes/api/shortenURL/+server.ts"
+	],
+	"/slub": [
+		"src/routes/slub/+page.ts"
+	]
 }

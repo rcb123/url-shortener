@@ -1,4 +1,4 @@
-import { fail, type Actions } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 import { loading, generatedURL } from '$root/stores';
 import prisma from '$root/lib/prisma';
 
@@ -6,10 +6,12 @@ import 'dotenv';
 
 function setLoading(state: boolean) {
 	loading.set(state);
+	console.log('set loading state to ' + state);
 }
 
 function setGeneratedURL(url: string | null) {
 	generatedURL.set(url);
+	console.log('set generated url to ' + url);
 }
 
 const isValidUrl = (longUrl: FormDataEntryValue | null) => {
@@ -30,9 +32,13 @@ export const actions: Actions = {
 		const shortUrl = data.get('shortUrl') as string;
 		const longUrl = data.get('longUrl') as string;
 
+		setGeneratedURL(null);
+
 		if (!isValidUrl(longUrl)) {
 			// URL is invalid. Please enter valid URL.
-			return fail(400, { longUrl, invalid: true });
+			throw error(400, {
+				message: `${longUrl} is invalid. Please enter a valid URL.`
+			});
 		}
 
 		setLoading(true);
@@ -45,8 +51,8 @@ export const actions: Actions = {
 			});
 
 			if (findUrl) {
-				return fail(500, {
-					errorMessage: `${process.env.PUBLIC_SITE_URL}${shortUrl} is already taken.`
+				throw error(500, {
+					message: `${process.env.PUBLIC_SITE_URL}${shortUrl} is already taken.`
 				});
 			}
 
@@ -57,15 +63,14 @@ export const actions: Actions = {
 				}
 			});
 
-			setLoading(false);
-			setGeneratedURL(longUrl);
-			// enqueueSnackbar('URL shortened successfully!', { variant: 'success' });
+			await setLoading(false);
+			await setGeneratedURL(shortUrl);
 		} catch (err) {
-			console.log(err);
-			setLoading(false);
-			setGeneratedURL(null);
-			// enqueueSnackbar(errorMessage, { variant: 'error' });
-			return fail(500);
+			await setLoading(false);
+			await setGeneratedURL(null);
+			throw error(500, {
+				message: `${err}`
+			});
 		}
 
 		return { success: true };

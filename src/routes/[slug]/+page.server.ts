@@ -1,7 +1,7 @@
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import prisma from '$root/lib/prisma';
 
-export const load = (async ({ params }) => {
+export const load: PageServerLoad = (async ({ params }) => {
 	const shortUrl = params.slug;
 
 	try {
@@ -39,4 +39,4 @@ export const load = (async ({ params }) => {
 			status: 500
 		};
 	}
-}) satisfies PageLoad;
+}) satisfies PageServerLoad;

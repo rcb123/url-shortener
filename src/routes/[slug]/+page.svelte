@@ -7,7 +7,11 @@
 	export let data: PageData;
 
 	onMount(async () => {
-		window.location.href = data.longURL;
+		if (data.longURL) {
+			window.location.href = data.longURL;
+		} else {
+			window.location.href = '/';
+		}
 	});
 </script>
 

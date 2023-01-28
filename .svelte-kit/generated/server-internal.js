@@ -3,7 +3,7 @@ import root from './root.svelte';
 import { set_building, set_paths, set_version } from '../../node_modules/@sveltejs/kit/src/runtime/shared.js';
 
 set_paths({"base":"","assets":""});
-set_version("1674620341046");
+set_version("1674948196388");
 
 export const options = {
 	csp: {"mode":"auto","directives":{"upgrade-insecure-requests":false,"block-all-mixed-content":false},"reportOnly":{"upgrade-insecure-requests":false,"block-all-mixed-content":false}},
@@ -20,7 +20,7 @@ export const options = {
 };
 
 export function get_hooks() {
-	return {};
+	return import("../../src/hooks.server.ts");
 }
 
 export { set_building, set_paths };

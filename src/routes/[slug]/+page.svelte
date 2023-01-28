@@ -7,8 +7,8 @@
 	export let data: PageData;
 
 	onMount(async () => {
-		if (data.longURL) {
-			window.location.href = data.longURL;
+		if (data.url) {
+			window.location.href = data.url;
 		} else {
 			window.location.href = '/';
 		}
@@ -16,5 +16,5 @@
 </script>
 
 <body>
-	<p>Please follow <a href={data.longURL}>this link</a>.</p>
+	<p>Please follow <a href={data.url}>this link</a>.</p>
 </body>

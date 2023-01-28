@@ -1,41 +1,37 @@
 import type { PageServerLoad } from './$types';
-import prisma from '$root/lib/prisma';
+import { supabase } from '$lib/supabaseClient';
 
 export const load: PageServerLoad = (async ({ params }) => {
-	const shortUrl = params.slug;
+	const slug = params.slug;
 
 	try {
-		const URL = await prisma.link.findUnique({
-			where: {
-				shortUrl: shortUrl as string
-			}
-		});
-
-		if (URL) {
-			await prisma.link.update({
-				where: {
-					shortUrl: shortUrl as string
-				},
-				data: {
-					clicks: {
-						increment: 1
-					}
+		const response = await supabase.from('short link').select().eq('slug', slug);
+		if (response.data) {
+			if (response.data.length != 0) {
+				const clicksinc = response.data[0].clicks + 1;
+				const { error } = await supabase
+					.from('short link')
+					.update({ clicks: `${clicksinc}` })
+					.eq('slug', `${slug}`);
+				if (error) {
+					console.log(error);
 				}
-			});
 
-			return {
-				longURL: URL.longUrl,
-				status: 302
-			};
-		} else {
-			return {
-				longURL: '/',
-				status: 404
-			};
+				return {
+					url: `${response.data[0].url}`,
+					status: 302
+				};
+			} else {
+				return {
+					url: '/',
+					status: 404
+				};
+			}
 		}
-	} catch (err) {
-		console.error(err);
+	} catch (error) {
+		console.error(error);
 		return {
+			error: error,
 			status: 500
 		};
 	}

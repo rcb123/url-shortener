@@ -1,86 +1,43 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { loading } from '$root/stores';
-	import { generatedURL } from '$root/stores';
-
-	import { PUBLIC_SITE_URL } from '$env/static/public';
-
-	let shortenedURL: string | null;
-	let loadingState: boolean;
-
-	loading.subscribe((value) => {
-		loadingState = value;
-	});
-
-	generatedURL.subscribe((value) => {
-		shortenedURL = value;
-	});
-
-	const copyUrl = async () => {
-		await navigator.clipboard.writeText(`${PUBLIC_SITE_URL}${shortenedURL}`);
-		alert('URL copied successfully!');
-	};
+	import { page } from '$app/stores';
 </script>
 
-<div class="h-screen flex flex-col justify-center items-center space-y-4">
-	<h1 class="font-bold text-xl text-center mb-1">URL Shortener</h1>
-	<form method="POST" use:enhance class="space-y-3 flex flex-col">
-		<div class="flex-1">
-			<input
-				autoComplete="off"
-				name="longUrl"
-				type="text"
-				placeholder="Enter your long URL"
-				class="px-2 bg-gray-100 focus:bg-white input input-sm w-full rounded-md"
-			/>
-		</div>
-		<div class="space-x-1 sm:space-x-2">
-			<label
-				>{PUBLIC_SITE_URL}
-				<input
-					autoComplete="off"
-					name="shortUrl"
-					type="text"
-					id="short-url"
-					placeholder="Enter your short URL"
-					class="w-[170px] sm:w-auto px-2 ml-1 bg-gray-100 focus:bg-white input input-sm rounded-md"
-				/>
-			</label>
-		</div>
-		<button
-			type="submit"
-			class="flex place-self-end px-3 opacity-80 hover:opacity-90 text-white rounded-md btn btn-primary btn-sm normal-case"
-		>
-			Shorten URL!
-		</button>
-	</form>
-	<div class={shortenedURL ? 'opacity-100' : 'opacity-0 pointer-events-none'}>
-		<button
-			type="button"
-			on:click={() => copyUrl()}
-			title="copy link"
-			class={`bg-green-600 mt-2 px-4 py-2 flex space-x-4 rounded-md w-full ${
-				loadingState && 'bg-gray-200 animate-pulse h-10'
-			}`}
-		>
-			<h1 class={`${loadingState && 'hidden'} flex-1 text-gray-100 text-left`}>
-				{PUBLIC_SITE_URL}
-				{shortenedURL}
-			</h1>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class={`h-6 w-6 ${loadingState && 'hidden'}`}
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="white"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-				/>
-			</svg>
-		</button>
+<!-- Vertically centerd div-->
+<div class="flex h-screen">
+	<div class="m-auto px-6 py-3 w-[60vw] shadow-primary shadow-lg rounded-2xl bg-base-200">
+		<h1 class="text-2xl mb-0 text-primary">Welcome to Shortly,</h1>
+		<p>the simplest and most efficient URL shortening service on the web.</p>
+		<br />
+		<p>
+			Our easy-to-use interface allows you to quickly and easily shorten any long URL into a
+			shorter, more manageable link.
+		</p>
+		<br />
+		<p>
+			Whether you're looking to share a link on social media, include it in an email or text
+			message, or simply make a long link more manageable, Shortly has you covered.
+		</p>
+		<br />
+		<p />
+
+		<p>
+			To get started, simply enter the long URL you wish to shorten in the field provided and click
+			the "Shorten" button. In just a matter of seconds, you'll have a new, shorter link that you
+			can use anywhere you need it.
+		</p>
+		<br />
+		<p>
+			Shortly also provides advanced features such as custom link and link analytics to make your
+			short links more useful.
+		</p>
+		<br />
+		<p>
+			Try Shortly today and experience the convenience of having a simple and reliable URL
+			shortening service at your fingertips.
+		</p>
+		<br />
+		<a href="/shorten">
+			<button class="btn btn-primary normal-case mb-1">Shorten your link now!</button>
+		</a>
 	</div>
 </div>

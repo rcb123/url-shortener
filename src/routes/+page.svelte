@@ -42,10 +42,14 @@
 				<button class="btn btn-primary mb-1 justify-start">Shorten your link now!</button>
 			</a>
 			{#if !$page.data.session}
-				<label for="login-modal" class="btn btn-primary justify-end">login</label>
+				<div>
+					<label for="register-modal" class="btn btn-primary justify-end mr-2">register</label>
+					<label for="login-modal" class="btn btn-primary justify-end">login</label>
+				</div>
 			{:else}
 				<a href="/account">
-					<button class="btn btn-primary mb-1">Account page</button>
+					<button class="btn btn-primary">account</button>
+					<button class="btn btn-primary">sign out</button>
 				</a>
 			{/if}
 		</div>

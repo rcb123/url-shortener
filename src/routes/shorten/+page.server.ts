@@ -1,4 +1,4 @@
-import type { Actions } from '@sveltejs/kit';
+import type { Actions } from './$types';
 import { loading, generatedURL } from '$root/stores';
 import { supabase } from '$lib/supabaseClient';
 import { env } from '$env/dynamic/public';
@@ -60,7 +60,7 @@ export const actions: Actions = {
 				};
 			}
 
-			const insResponse = await supabase.from('short link').insert({
+			const insertResponse = await supabase.from('short link').insert({
 				url: url,
 				slug: slug,
 				utm_source: utm_source,
@@ -68,11 +68,11 @@ export const actions: Actions = {
 				utm_campaign: utm_campaign
 			});
 
-			if (insResponse.error) {
+			if (insertResponse.error) {
 				setLoading(false);
 				return {
 					success: false,
-					message: insResponse.error,
+					message: insertResponse.error,
 					slug: null,
 					status: 500
 				};

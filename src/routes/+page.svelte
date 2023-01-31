@@ -4,7 +4,7 @@
 
 <!-- Vertically centerd div-->
 <div class="flex h-screen">
-	<div class="m-auto px-6 py-3 w-[60vw] shadow-primary shadow-lg rounded-2xl bg-base-200">
+	<div class="m-auto px-6 py-3 w-[60vw] shadow-primary shadow-md rounded-2xl bg-base-200">
 		<h1 class="text-2xl mb-0 text-primary">Welcome to Shortly,</h1>
 		<p>the simplest and most efficient URL shortening service on the web.</p>
 		<br />
@@ -36,8 +36,18 @@
 			shortening service at your fingertips.
 		</p>
 		<br />
-		<a href="/shorten">
-			<button class="btn btn-primary normal-case mb-1">Shorten your link now!</button>
-		</a>
+
+		<div class="flex flex-row justify-between">
+			<a href="/shorten">
+				<button class="btn btn-primary mb-1 justify-start">Shorten your link now!</button>
+			</a>
+			{#if !$page.data.session}
+				<label for="login-modal" class="btn btn-primary justify-end">login</label>
+			{:else}
+				<a href="/account">
+					<button class="btn btn-primary mb-1">Account page</button>
+				</a>
+			{/if}
+		</div>
 	</div>
 </div>

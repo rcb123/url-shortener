@@ -18,19 +18,15 @@ const isValidEmail = (email: string | null) => {
 	} else return 'Email is required';
 };
 
-const isValidPassword = (password: string | null, confirmPassword: string | null) => {
-	if (password && confirmPassword) {
+const isValidPassword = (password: string | null) => {
+	if (password) {
 		if (password?.length < 6) {
 			return 'Password must be at least 6 characters';
 		} else if (password?.length > 32) {
 			return 'Password must be less than 32 characters';
-		} else if (password != confirmPassword) {
-			return 'Password and Confirm Password must match';
 		} else {
 			return null;
 		}
-	} else if (password && !confirmPassword) {
-		return 'Confirm Password is required';
 	} else {
 		return 'Password is required';
 	}
@@ -43,13 +39,11 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const email = String(formData.get('email'));
 		const password = String(formData.get('password'));
-		const confirmPassword = String(formData.get('passwordConfirm'));
-		const terms = Boolean(formData.get('terms'));
 
 		console.log('got here (2)');
 
 		const validEmail = isValidEmail(email);
-		const validPassword = isValidPassword(password, confirmPassword);
+		const validPassword = isValidPassword(password);
 		const validationError = validEmail || validPassword;
 
 		if (validationError) {
@@ -62,7 +56,7 @@ export const actions: Actions = {
 			};
 		}
 
-		const { data, error } = await supabase.auth.signUp({
+		const { data, error } = await supabase.auth.signInWithPassword({
 			email: email,
 			password: password
 		});
@@ -77,7 +71,7 @@ export const actions: Actions = {
 			return {
 				status: 500,
 				errors: {
-					signUp: String(error)
+					signIn: String(error)
 				}
 			};
 		}

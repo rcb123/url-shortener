@@ -74,4 +74,10 @@
 			<button class="btn btn-primary w-full" type="submit">Register</button>
 		</div>
 	</form>
+	{#if form?.status == 200}
+	<div>
+		<p>Verification email sent!</p>
+		<p>Please check your email</p>
+	</div>
+	{/if}
 </div>

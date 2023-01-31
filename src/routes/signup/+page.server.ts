@@ -18,21 +18,35 @@ const isValidEmail = (email: string | null) => {
 	} else return 'Email is required';
 };
 
-const isValidPassword = (password: string | null, confirmPassword: string | null) => {
-	if (password && confirmPassword) {
+const isValidPassword = (password: string | null) => {
+	if (password) {
 		if (password?.length < 6) {
 			return 'Password must be at least 6 characters';
 		} else if (password?.length > 32) {
 			return 'Password must be less than 32 characters';
-		} else if (password != confirmPassword) {
-			return 'Password and Confirm Password must match';
 		} else {
 			return null;
 		}
-	} else if (password && !confirmPassword) {
-		return 'Confirm Password is required';
 	} else {
 		return 'Password is required';
+	}
+};
+
+const isPasswordMatch = (password: string | null, confirmPassword: string | null) => {
+	if (!confirmPassword) {
+		return 'Confirm Password is required';
+	} else if (password != confirmPassword) {
+		return 'Password and Confirm Password must match';
+	} else {
+		return null;
+	}
+};
+
+const isAcceptingTerms = (terms: boolean) => {
+	if (!terms) {
+		return 'You must accept the terms before proceeding';
+	} else {
+		return null;
 	}
 };
 
@@ -41,19 +55,23 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const email = String(formData.get('email'));
 		const password = String(formData.get('password'));
-		const confirmPassword = String(formData.get('passwordConfirm'));
+		const passwordConfirm = String(formData.get('passwordConfirm'));
 		const terms = Boolean(formData.get('terms'));
 
 		const validEmail = isValidEmail(email);
-		const validPassword = isValidPassword(password, confirmPassword);
-		const validationError = validEmail || validPassword;
+		const validPassword = isValidPassword(password);
+		const passwordMatch = isPasswordMatch(password, passwordConfirm);
+		const acceptedTerms = isAcceptingTerms(terms);
+		const validationError = validEmail || validPassword || acceptedTerms;
 
 		if (validationError) {
 			return {
 				status: 500,
 				errors: {
 					email: validEmail,
-					password: validPassword
+					password: validPassword,
+					passwordConfirm: passwordMatch,
+					terms: acceptedTerms
 				}
 			};
 		}
@@ -82,7 +100,9 @@ export const actions: Actions = {
 			status: 200,
 			errors: {
 				email: null,
-				password: null
+				password: null,
+				passwordConfirm: null,
+				acceptedTerms: null
 			}
 		};
 	}

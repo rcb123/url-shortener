@@ -38,15 +38,11 @@ const isValidPassword = (password: string | null, confirmPassword: string | null
 
 export const actions: Actions = {
 	default: async ({ request }) => {
-		console.log('got here (1)');
-
 		const formData = await request.formData();
 		const email = String(formData.get('email'));
 		const password = String(formData.get('password'));
 		const confirmPassword = String(formData.get('passwordConfirm'));
 		const terms = Boolean(formData.get('terms'));
-
-		console.log('got here (2)');
 
 		const validEmail = isValidEmail(email);
 		const validPassword = isValidPassword(password, confirmPassword);

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	let form: any;
+	import type { ActionData } from '../routes/signup/$types';
+
+	export let form: ActionData;
+
 </script>
 
 <div class="lg:container mx-auto h-full w-full p-8">

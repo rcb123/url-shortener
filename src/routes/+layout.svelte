@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { ActionData } from './signup/';
 	import { supabase } from '$lib/supabaseClient';
 	import { invalidate } from '$app/navigation';
 	import RegisterForm from '$root/components/RegisterForm.svelte';
@@ -6,6 +7,8 @@
 
 	import { onMount } from 'svelte';
 	import '$root/styles.css';
+
+	let form: ActionData;
 
 	onMount(() => {
 		const {
@@ -24,7 +27,7 @@
 <input type="checkbox" id="register-modal" class="modal-toggle" />
 <label for="register-modal" class="modal cursor-pointer">
 	<label class="modal-box relative" for="">
-		<RegisterForm />
+		<RegisterForm {form}/>
 	</label>
 </label>
 

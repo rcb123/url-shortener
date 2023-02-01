@@ -62,7 +62,7 @@ export const actions: Actions = {
 		const validPassword = isValidPassword(password);
 		const passwordMatch = isPasswordMatch(password, passwordConfirm);
 		const acceptedTerms = isAcceptingTerms(terms);
-		const validationError = validEmail || validPassword || acceptedTerms;
+		const validationError = (validEmail || validPassword || acceptedTerms) != null;
 
 		if (validationError) {
 			return {
@@ -72,6 +72,9 @@ export const actions: Actions = {
 					password: validPassword,
 					passwordConfirm: passwordMatch,
 					terms: acceptedTerms
+				},
+				data: {
+					email: email
 				}
 			};
 		}
@@ -92,6 +95,9 @@ export const actions: Actions = {
 				status: 500,
 				errors: {
 					signUp: String(error)
+				},
+				data: {
+					email: email
 				}
 			};
 		}
@@ -103,6 +109,9 @@ export const actions: Actions = {
 				password: null,
 				passwordConfirm: null,
 				acceptedTerms: null
+			},
+			data: {
+				email: email
 			}
 		};
 	}

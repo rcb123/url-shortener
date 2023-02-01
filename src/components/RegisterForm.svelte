@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	export let form: any;
+	let form: any;
 </script>
 
 <div class="lg:container mx-auto h-full w-full p-8">

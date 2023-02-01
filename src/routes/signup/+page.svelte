@@ -1,6 +1,5 @@
 <script lang="ts">
-	import SignupForm from '$components/SignupForm.svelte';
-	export let form: any;
+	import RegisterForm from '$components/RegisterForm.svelte';
 </script>
 
-<SignupForm {form} />
+<RegisterForm />

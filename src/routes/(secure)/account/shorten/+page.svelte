@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import { supabase } from '$lib/supabaseClient';
 	import { env } from '$env/dynamic/public';

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { supabase } from '$lib/supabaseClient';
 
 	let email: string | null;

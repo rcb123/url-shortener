@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { supabase } from '$lib/supabaseClient';
+
+	const signOut = async () => {
+    	await supabase.auth.signOut()
+    	window.location.href = '/';
+	}
 </script>
 
 <!-- Vertically centerd div-->
@@ -42,13 +48,13 @@
 				<button class="btn btn-primary justify-start">Shorten your link now!</button>
 			</a>
 			{#if !$page.data.session}
-				<label for="register-modal" class="btn btn-primary justify-end mx-2">register</label>
-				<label for="login-modal" class="btn btn-primary justify-end">login</label>
+				<label for="register-modal" class="btn btn-primary mx-2 w-28">register</label>
+				<label for="login-modal" class="btn btn-primary w-28">login</label>
 			{:else}
 				<a href="/account">
-					<button class="btn btn-primary">account</button>
+					<button class="btn btn-primary w-28">account</button>
 				</a>
-				<button class="btn btn-primary">sign out</button>
+				<button class="btn btn-primary w-28" on:click={signOut}>sign out</button>
 			{/if}
 		</div>
 	</div>

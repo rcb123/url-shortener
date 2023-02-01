@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabaseClient';
 
+	let success: boolean = false
 	let email: string | null;
 	let password: string | null;
 	let emailError: string | null = null;
@@ -39,6 +40,7 @@
 	};
 
 	const login = async () => {
+		success = false;
 		const validEmail = isValidEmail(email);
 		const validPassword = isValidPassword(password);
 		const validationError = validEmail || validPassword;
@@ -73,8 +75,13 @@
 
 		emailError = null;
 		passwordError = null;
+		success = true;
 		return;
 	};
+
+	$: if (success) {
+		window.location.href = ('/')
+	}
 </script>
 
 <div class="lg:container mx-auto h-full w-full p-8">
@@ -106,7 +113,7 @@
 			<input
 				type="password"
 				name="password"
-				bind:value={email}
+				bind:value={password}
 				class="input w-full max-w-xs {passwordError ? 'input-error' : 'input-bordered'}"
 			/>
 			<label for="password" class="label">

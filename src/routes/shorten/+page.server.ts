@@ -30,9 +30,6 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const slug = String(data.get('slug'));
 		const url = String(data.get('url'));
-		const utm_source = String(data.get('utm_source'));
-		const utm_medium = String(data.get('utm_medium'));
-		const utm_campaign = String(data.get('utm_campaign'));
 
 		setGeneratedURL(null);
 
@@ -62,10 +59,7 @@ export const actions: Actions = {
 
 			const insertResponse = await supabase.from('short link').insert({
 				url: url,
-				slug: slug,
-				utm_source: utm_source,
-				utm_medium: utm_medium,
-				utm_campaign: utm_campaign
+				slug: slug
 			});
 
 			if (insertResponse.error) {

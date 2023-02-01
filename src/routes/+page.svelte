@@ -3,8 +3,8 @@
 </script>
 
 <!-- Vertically centerd div-->
-<div class="flex h-screen">
-	<div class="m-auto px-6 py-3 w-[60vw] shadow-primary shadow-md rounded-2xl bg-base-200">
+<div class="flex h-screen bg-base-200">
+	<div class="m-auto px-6 py-3 w-[60vw] shadow-primary shadow-md rounded-2xl bg-base-100 overflow-auto">
 		<h1 class="text-2xl mb-0 text-primary">Welcome to Shortly,</h1>
 		<p>the simplest and most efficient URL shortening service on the web.</p>
 		<br />
@@ -37,20 +37,18 @@
 		</p>
 		<br />
 
-		<div class="flex flex-row justify-between">
+		<div class="flex flex-row justify-between mb-2">
 			<a href="/shorten">
-				<button class="btn btn-primary mb-1 justify-start">Shorten your link now!</button>
+				<button class="btn btn-primary justify-start">Shorten your link now!</button>
 			</a>
 			{#if !$page.data.session}
-				<div>
-					<label for="register-modal" class="btn btn-primary justify-end mr-2">register</label>
-					<label for="login-modal" class="btn btn-primary justify-end">login</label>
-				</div>
+				<label for="register-modal" class="btn btn-primary justify-end mx-2">register</label>
+				<label for="login-modal" class="btn btn-primary justify-end">login</label>
 			{:else}
 				<a href="/account">
 					<button class="btn btn-primary">account</button>
-					<button class="btn btn-primary">sign out</button>
 				</a>
+				<button class="btn btn-primary">sign out</button>
 			{/if}
 		</div>
 	</div>

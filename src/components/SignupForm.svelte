@@ -5,7 +5,7 @@
 </script>
 
 <div class="lg:container mx-auto h-full w-full p-8">
-	<form method="POST" action="/signup" use:enhance class="flex flex-col items-center w-full justify-center">
+	<form method="POST" {action} use:enhance class="flex flex-col items-center w-full justify-center">
 		<h1 class="text-3xl font-medium text-center my-2">Register</h1>
 		<div class="form-control w-full max-w-xs">
 			<label for="email" class="label">
@@ -75,9 +75,9 @@
 		</div>
 	</form>
 	{#if form?.status == 200}
-	<div>
-		<p>Verification email sent!</p>
-		<p>Please check your email</p>
-	</div>
+		<div>
+			<p>Verification email sent!</p>
+			<p>Please check your email</p>
+		</div>
 	{/if}
 </div>

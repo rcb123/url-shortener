@@ -5,7 +5,7 @@
 </script>
 
 <div class="lg:container mx-auto h-full w-full p-8">
-	<form method="POST" action="/signin" use:enhance class="flex flex-col items-center w-full justify-center">
+	<form method="POST" {action} use:enhance class="flex flex-col items-center w-full justify-center">
 		<h1 class="text-3xl font-medium text-center my-2">Login</h1>
 		<div class="form-control w-full max-w-xs">
 			<label for="email" class="label">

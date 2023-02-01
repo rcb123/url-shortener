@@ -2,7 +2,7 @@
 	import { supabase } from '$lib/supabaseClient';
 	import { invalidate } from '$app/navigation';
 	import SignupForm from '$components/SignupForm.svelte';
-	import SigninForm from '$components/SigninForm.svelte';
+	import LoginForm from '$components/LoginForm.svelte';
 
 	import { onMount } from 'svelte';
 	import '$root/styles.css';
@@ -25,14 +25,14 @@
 <input type="checkbox" id="register-modal" class="modal-toggle" />
 <label for="register-modal" class="modal cursor-pointer">
 	<label class="modal-box relative" for="">
-		<SignupForm {form} action="/signup" />
+		<SignupForm {form} />
 	</label>
 </label>
 
 <input type="checkbox" id="login-modal" class="modal-toggle" />
 <label for="login-modal" class="modal cursor-pointer">
 	<label class="modal-box relative" for="">
-		<SigninForm {form} action="/signin" />
+		<LoginForm />
 	</label>
 </label>
 

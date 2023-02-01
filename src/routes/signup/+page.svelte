@@ -3,4 +3,4 @@
 	export let form: any;
 </script>
 
-<SignupForm {form} action="/" />
+<SignupForm {form} />

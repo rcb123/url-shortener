@@ -5,12 +5,10 @@ import { env } from '$env/dynamic/public';
 
 function setLoading(state: boolean) {
 	loading.update((existing) => state);
-	console.log('set loading state to ' + state);
 }
 
 function setGeneratedURL(url: string | null) {
 	generatedURL.update((existing) => url);
-	console.log('set generated url to ' + url);
 }
 
 const isValidUrl = (url: FormDataEntryValue | null) => {

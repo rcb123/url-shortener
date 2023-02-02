@@ -15,6 +15,10 @@ export const load: PageServerLoad = (async ({ params }) => {
 					.eq('slug', `${slug}`);
 				if (error) {
 					console.log(error);
+					return {
+						url: '/',
+						status: 500
+					}
 				}
 
 				return {

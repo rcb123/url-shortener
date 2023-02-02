@@ -85,12 +85,6 @@ export const actions: Actions = {
 		});
 
 		if (error) {
-			console.log(error);
-		} else {
-			console.log(data);
-		}
-
-		if (error) {
 			return {
 				status: 500,
 				errors: {

@@ -45,7 +45,6 @@
 
 		try {
 			const existCheck = await supabase.from('short link').select().eq('slug', slug);
-			console.log(existCheck);
 			if (existCheck.count) {
 				loading = false;
 				success = false;

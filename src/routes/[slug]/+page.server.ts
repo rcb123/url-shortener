@@ -5,12 +5,12 @@ export const load: PageServerLoad = (async ({ params }) => {
 	const slug = params.slug;
 
 	try {
-		const response = await supabase.from('short link').select().eq('slug', slug);
+		const response = await supabase.from('shortLink').select().eq('slug', slug);
 		if (response.data) {
 			if (response.data.length != 0) {
 				const clicksinc = response.data[0].clicks + 1;
 				const { error } = await supabase
-					.from('short link')
+					.from('shortLink')
 					.update({ clicks: `${clicksinc}` })
 					.eq('slug', `${slug}`);
 				if (error) {

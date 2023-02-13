@@ -2,7 +2,7 @@
 	// import { page } from '$app/stores';
 	import { supabase } from '$lib/supabaseClient';
 
-	const { data, error } = supabase.from('short link').select('*');
+	const { data, error } = supabase.from('shortLink').select('*');
 
 	// .eq('owner', $page.data.session?.user.id)
 

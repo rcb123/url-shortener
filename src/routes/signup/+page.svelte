@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
 
-	export let form: ActionData;
+	let form: ActionData;
 </script>
 
 <div class="lg:container mx-auto h-full w-full p-8">

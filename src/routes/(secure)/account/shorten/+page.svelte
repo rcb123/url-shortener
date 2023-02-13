@@ -44,7 +44,7 @@
 		loading = true;
 
 		try {
-			const existCheck = await supabase.from('short link').select().eq('slug', slug);
+			const existCheck = await supabase.from('shortLink').select().eq('slug', slug);
 			if (existCheck.count) {
 				loading = false;
 				success = false;
@@ -53,7 +53,7 @@
 				return;
 			}
 
-			const insertResponse = await supabase.from('short link').insert({
+			const insertResponse = await supabase.from('shortLink').insert({
 				url: url,
 				slug: slug,
 				utm_source: utm_source,

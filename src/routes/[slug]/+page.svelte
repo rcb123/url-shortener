@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-
-	import 'dotenv';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 

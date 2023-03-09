@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabaseClient';
 
-	let success: boolean = false
+	let success: boolean = false;
 	let email: string | null;
 	let password: string | null;
 	let emailError: string | null = null;
@@ -69,7 +69,7 @@
 		// }
 
 		if (error) {
-			signInError = String(error)
+			signInError = String(error);
 			return;
 		}
 
@@ -80,16 +80,16 @@
 	};
 
 	$: if (success) {
-		window.location.href = ('/')
+		window.location.href = '/';
 	}
 </script>
 
-<div class="lg:container mx-auto h-full w-full p-8">
+<div class="lg:container mx-auto h-full w-full p-6">
 	<form
 		on:submit|preventDefault|trusted={login}
 		class="flex flex-col items-center w-full justify-center"
 	>
-		<h1 class="text-3xl font-medium text-center my-2">Login</h1>
+		<h1 class="text-3xl font-medium text-center mb-2">Login</h1>
 		<div class="form-control w-full max-w-xs">
 			<label for="email" class="label">
 				<span class="label-text">Email</span>
@@ -125,10 +125,10 @@
 		<div class="w-full max-w-xs">
 			<button class="btn btn-primary w-full" type="submit">Login</button>
 		</div>
+		{#if signInError}
+			<div class="w-full rounded-lg bg-slate-100 mt-4 p-4 max-w-xs">
+				<p class="text-base text-center font-medium text-error">{signInError}</p>
+			</div>
+		{/if}
 	</form>
-	{#if signInError}
-		<div>
-			<p class="text-lg font-medium text-error">{signInError}</p>
-		</div>
-	{/if}
 </div>

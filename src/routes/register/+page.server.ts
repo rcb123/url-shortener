@@ -1,4 +1,5 @@
 import type { Actions } from './$types';
+import { fail } from '@sveltejs/kit';
 import { supabase } from '$lib/supabaseClient';
 
 const isValidEmail = (email: string | null) => {
@@ -58,55 +59,27 @@ export const actions: Actions = {
 		const passwordConfirm = String(formData.get('passwordConfirm'));
 		const terms = Boolean(formData.get('terms'));
 
-		const validEmail = isValidEmail(email);
-		const validPassword = isValidPassword(password);
-		const passwordMatch = isPasswordMatch(password, passwordConfirm);
-		const acceptedTerms = isAcceptingTerms(terms);
-		const validationError = (validEmail || validPassword || acceptedTerms) != null;
+		const validEmail: string | null = isValidEmail(email);
+		const validPassword: string | null = isValidPassword(password);
+		const passwordMatch: string | null = isPasswordMatch(password, passwordConfirm);
+		const acceptedTerms: string | null = isAcceptingTerms(terms);
+		const validationError: boolean = (validEmail || validPassword || passwordMatch || acceptedTerms) != null;
 
 		if (validationError) {
-			return {
-				status: 500,
-				errors: {
-					email: validEmail,
-					password: validPassword,
-					passwordConfirm: passwordMatch,
-					terms: acceptedTerms
-				},
-				data: {
-					email: email
-				}
-			};
+			return fail(400, { email, validEmail, validPassword, passwordMatch, acceptedTerms });
 		}
 
-		const { data, error } = await supabase.auth.signUp({
+		const { error } = await supabase.auth.signUp({
 			email: email,
 			password: password
 		});
 
 		if (error) {
-			return {
-				status: 500,
-				errors: {
-					signUp: String(error)
-				},
-				data: {
-					email: email
-				}
-			};
+			return fail(400, {email, error})
 		}
 
 		return {
-			status: 200,
-			errors: {
-				email: null,
-				password: null,
-				passwordConfirm: null,
-				acceptedTerms: null
-			},
-			data: {
-				email: email
-			}
+			status: 200, email: email
 		};
 	}
 } satisfies Actions;

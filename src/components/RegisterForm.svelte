@@ -3,7 +3,6 @@
 	import type { ActionData } from '../routes/signup/$types';
 
 	export let form: ActionData;
-
 </script>
 
 <div class="lg:container mx-auto h-full w-full p-8">
@@ -23,6 +22,7 @@
 				name="email"
 				class="input w-full max-w-xs {form?.errors?.email ? 'input-error' : 'input-bordered'}"
 				value={form?.data?.email ?? ''}
+				required
 			/>
 			<label for="email" class="label">
 				{#if form?.errors?.email}
@@ -38,6 +38,7 @@
 				type="password"
 				name="password"
 				class="input w-full max-w-xs {form?.errors?.password ? 'input-error' : 'input-bordered'}"
+				required
 			/>
 			<label for="password" class="label">
 				{#if form?.errors?.password}
@@ -55,6 +56,7 @@
 				class="input w-full max-w-xs {form?.errors?.passwordConfirm
 					? 'input-error'
 					: 'input-bordered'}"
+					required
 			/>
 			<label for="passwordConfirm" class="label">
 				{#if form?.errors?.passwordConfirm}
@@ -68,6 +70,7 @@
 					type="checkbox"
 					name="terms"
 					class="checkbox checkbox-primary {form?.errors?.terms ? 'border-error' : ''}"
+					required
 				/>
 				<span class="label-text">I accept the terms and conditions</span>
 			</label>

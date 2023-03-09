@@ -22,7 +22,7 @@
 		width: 21em;
 		height: 21em;
 		
-		filter: blur(0.03em) contrast(2);
+		filter: blur(0.02em) contrast(1.3);
 		animation: loaderSpin $duration * 4 infinite linear;
 
 		@keyframes loaderSpin {

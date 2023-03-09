@@ -26,7 +26,10 @@
 	};
 </script>
 
-<div class="h-screen flex flex-col justify-center items-center space-y-4">
+<div class="flex flex-col h-screen bg-base-200">
+	<div
+		class="m-auto px-6 pt-3 pb-6 max-w-[60vw] min-w-[30rem] shadow-primary shadow-md rounded-2xl bg-base-100 overflow-auto"
+	>
 		<h1 class="font-bold text-xl text-center mb-1">URL Shortener</h1>
 		<form method="POST" use:enhance class="space-y-3 flex flex-col">
 			<div class="flex-1">
@@ -35,7 +38,11 @@
 					name="url"
 					type="text"
 					placeholder="Enter your long URL"
-					class="px-2 bg-gray-100 focus:bg-white input input-sm w-full rounded-md"
+					class="px-2 bg-gray-100 focus:bg-white input input-sm w-full rounded-md {form?.error ==
+					'Invalid URL'
+						? 'input-error'
+						: ''}"
+					required
 				/>
 			</div>
 			<div class="space-x-1 sm:space-x-2">
@@ -47,16 +54,20 @@
 						type="text"
 						id="short-url"
 						placeholder="Enter your short URL"
-						class="w-[170px] sm:w-auto px-2 ml-1 bg-gray-100 focus:bg-white input input-sm rounded-md"
+						class="w-[170px] sm:w-auto px-2 ml-1 bg-gray-100 focus:bg-white input input-sm rounded-md {form?.error ==
+						'URL already taken'
+							? 'input-error'
+							: ''}"
+						required
 					/>
+					<button
+						type="submit"
+						class="place-self-end px-3 opacity-80 hover:opacity-90 text-white rounded-md btn btn-primary btn-sm normal-case"
+					>
+						Shorten URL!
+					</button>
 				</label>
 			</div>
-			<button
-				type="submit"
-				class="flex place-self-end px-3 opacity-80 hover:opacity-90 text-white rounded-md btn btn-primary btn-sm normal-case"
-			>
-				Shorten URL!
-			</button>
 		</form>
 		{#if form?.success == true}
 			<div>
@@ -88,9 +99,10 @@
 				</button>
 			</div>
 		{/if}
-	{#if form?.success != null}
-		<div>
-			<p class="text-lg font-medium">{form?.message}</p>
-		</div>
-	{/if}
+		{#if form?.success != null}
+			<div class="w-full rounded-lg bg-gray-50 mt-4 p-4">
+				<p class="text-base text-center font-medium text-error">{form?.message}</p>
+			</div>
+		{/if}
+	</div>
 </div>

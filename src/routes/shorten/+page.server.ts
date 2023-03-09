@@ -35,6 +35,7 @@ export const actions: Actions = {
 			return {
 				success: false,
 				message: `${url} is invalid. Please enter a valid URL.`,
+				error: "Invalid URL",
 				slug: null,
 				status: 500
 			};
@@ -50,6 +51,7 @@ export const actions: Actions = {
 				return {
 					success: false,
 					message: `Error! ${env.PUBLIC_SITE_URL}${slug} is already taken. Please try another short URL.`,
+					error: "URL already taken",
 					slug: null,
 					status: 500
 				};
@@ -65,6 +67,7 @@ export const actions: Actions = {
 				return {
 					success: false,
 					message: insertResponse.error,
+					error: null,
 					slug: null,
 					status: 500
 				};
@@ -78,6 +81,7 @@ export const actions: Actions = {
 			return {
 				success: false,
 				message: error,
+				error: error,
 				slug: null,
 				status: 500
 			};
@@ -86,6 +90,7 @@ export const actions: Actions = {
 		return {
 			success: true,
 			message: `Success! Short link created at rezab.vercel.app/${slug}`,
+			error: null,
 			slug: slug,
 			status: 200
 		};

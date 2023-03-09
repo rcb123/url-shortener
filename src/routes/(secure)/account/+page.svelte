@@ -1,17 +1,35 @@
 <script lang="ts">
-	// import { page } from '$app/stores';
+	import { page } from '$app/stores';
+	import type { AuthSession } from '@supabase/supabase-js';
 	import { supabase } from '$lib/supabaseClient';
+	import { onMount } from 'svelte';
 
-	const { data, error } = supabase.from('shortLink').select('*');
+	let session: AuthSession = $page.data.session;
+	const { user } = session;
 
-	// .eq('owner', $page.data.session?.user.id)
+	let data: any;
+	let error;
 
-	console.log(data);
+	// Move all of this into a load function
+	onMount(async () => {
+		({ data, error } = await supabase
+			.from('shortLink')
+		 	.select('*')
+		 	.eq('owner', user.id));
+		if (data) {
+			console.log("data here!")
+			console.log(data);
+			console.log(data[0])
+		}
+		if (error) {
+			console.log(error);
+		}
+	});
 </script>
 
 <div class="flex h-screen bg-base-200">
 	<div
-		class="m-auto px-6 py-3 w-[60vw] h-[60vh] shadow-primary shadow-md rounded-2xl bg-base-100 overflow-auto"
+		class="m-auto px-6 py-3 w-[60vw] min-w-[30rem] h-[60vh] shadow-primary shadow-md rounded-2xl bg-base-100 overflow-auto"
 	>
 		<h1 class="text-2xl mb-0 text-primary">Welcome to your Account Page,</h1>
 		<p>Here you can create and track your shortlinks</p>
@@ -21,17 +39,22 @@
 			{#if !data}
 				<p class="text-lg text-error">No Results</p>
 			{:else}
-				<table class="table">
-					<p>hi</p>
-					<p>hi</p>
+				<table class="table bg-slate-300 rounded-lg h-[44vh]">
+					{#each data as link}
+						<div class="flex flex-row px-2 overflow-wrap bg-gray-50 rounded-lg m-2">
+							<p>Long URL: {link.url}</p>
+							<p>Slug: {link.slug}</p>
+							<p>Clicks: {link.clicks}</p>
+						</div>
+					{/each}
 				</table>
 			{/if}
 		</div>
 
-		<div>
-			<button class="btn btn-primary justify-end">
-				Create a new link!
-			</button>
+		<div class="mt-2">
+			<a href="/account/shorten">
+				<button class="btn btn-primary justify-end"> Create a new link! </button>
+			</a>
 		</div>
 	</div>
 </div>

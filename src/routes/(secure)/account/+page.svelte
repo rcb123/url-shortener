@@ -1,30 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import type { AuthSession } from '@supabase/supabase-js';
-	import { supabase } from '$lib/supabaseClient';
-	import { onMount } from 'svelte';
-
-	let session: AuthSession = $page.data.session;
-	const { user } = session;
-
-	let data: any;
-	let error;
-
-	// Move all of this into a load function
-	onMount(async () => {
-		({ data, error } = await supabase
-			.from('shortLink')
-		 	.select('*')
-		 	.eq('owner', user.id));
-		if (data) {
-			console.log("data here!")
-			console.log(data);
-			console.log(data[0])
-		}
-		if (error) {
-			console.log(error);
-		}
-	});
+	import type { PageData } from "./$types";
+	export let data: PageData;
 </script>
 
 <div class="flex h-screen bg-base-200">
@@ -39,9 +15,10 @@
 			{#if !data}
 				<p class="text-lg text-error">No Results</p>
 			{:else}
-				<table class="table bg-slate-300 rounded-lg h-[44vh]">
-					{#each data as link}
-						<div class="flex flex-row px-2 overflow-wrap bg-gray-50 rounded-lg m-2">
+				<table class="table bg-slate-300 rounded-lg h-[44vh] w-full">
+					{#each data.data as link, index}
+						<div class="flex flex-col px-2 overflow-wrap bg-gray-50 rounded-lg m-2">
+							<p>Link {index + 1}:</p>
 							<p>Long URL: {link.url}</p>
 							<p>Slug: {link.slug}</p>
 							<p>Clicks: {link.clicks}</p>

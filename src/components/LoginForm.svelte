@@ -60,14 +60,6 @@
 			password: password
 		});
 
-		// if (error) {
-		// 	console.log('Fatal Error');
-		// 	console.log(error);
-		// } else {
-		// 	console.log('Success!');
-		// 	console.log(data);
-		// }
-
 		if (error) {
 			signInError = String(error);
 			return;

@@ -7,7 +7,7 @@ const defaultStore: Store = {
 };
 
 export type Store = {
-	user: User;
+	user: User | null;
 };
 
 export const loading: Writable<boolean> = writable(false);

@@ -5,9 +5,9 @@ export interface ValidatorResult {
 	};
 }
 
-export type ValidatorFn = (value: any) => ValidatorResult;
+export type ValidatorFn = (value: string | boolean | number | null) => ValidatorResult;
 
-function required(value: any): ValidatorResult {
+function required(value: string | null): ValidatorResult {
 	if (value === '' || value == null) {
 		return { required: { error: true, message: 'Field is required' } };
 	}

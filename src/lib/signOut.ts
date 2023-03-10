@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabaseClient';
 
-const signOut = async () => {
+export const signOut = async () => {
     await supabase.auth.signOut();
     window.location.href = '/';
 };

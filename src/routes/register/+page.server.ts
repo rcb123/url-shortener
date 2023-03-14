@@ -63,7 +63,8 @@ export const actions: Actions = {
 		const validPassword: string | null = isValidPassword(password);
 		const passwordMatch: string | null = isPasswordMatch(password, passwordConfirm);
 		const acceptedTerms: string | null = isAcceptingTerms(terms);
-		const validationError: boolean = (validEmail || validPassword || passwordMatch || acceptedTerms) != null;
+		const validationError: boolean =
+			(validEmail || validPassword || passwordMatch || acceptedTerms) != null;
 
 		if (validationError) {
 			return fail(400, { email, validEmail, validPassword, passwordMatch, acceptedTerms });
@@ -75,11 +76,12 @@ export const actions: Actions = {
 		});
 
 		if (error) {
-			return fail(400, {email, error})
+			return fail(400, { email, error });
 		}
 
 		return {
-			status: 200, email: email
+			status: 200,
+			email: email
 		};
 	}
 } satisfies Actions;

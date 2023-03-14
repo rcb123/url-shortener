@@ -1,7 +1,7 @@
 <script lang="ts">
 	let response: Response;
 	let responseData: any = [''];
-	let responseJSON: { data: string; status: number; };
+	let responseJSON: { data: string; status: number };
 
 	let email: number = 0;
 	let emailError: number = 0;
@@ -88,7 +88,7 @@
 				<input
 					type="checkbox"
 					name="terms"
-					class="checkbox checkbox-primary {responseData[passwordMatchError] ? 'border-error' : ''}"
+					class="checkbox checkbox-primary {responseData[termsError] ? 'border-error' : ''}"
 				/>
 				<span class="label-text">I accept the terms and conditions</span>
 			</label>
@@ -109,7 +109,9 @@
 		</div>
 	{/if}
 	{#if responseData[signUpError]}
-		<div class="mt-10 bg-slate-50 rounded-xl p-6 shadow-lg w-full max-w-xs mx-auto text-center font-medium">
+		<div
+			class="mt-10 bg-slate-50 rounded-xl p-6 shadow-lg w-full max-w-xs mx-auto text-center font-medium"
+		>
 			<p class="text-error">{responseData[signUpError]}</p>
 		</div>
 	{/if}
